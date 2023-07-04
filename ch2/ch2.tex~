@@ -1,0 +1,297 @@
+\documentclass{article}
+
+\usepackage{amsmath}                                  
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{bm}
+
+\setlength\parindent{0pt}
+
+% commands
+%\newcommand{\tt}{\text}
+
+
+\begin{document}
+\textbf{Microfabrication (ECE 5221) Homework 7}
+
+\textbf{Due 4/11/23}
+
+\textbf{John Gardner}
+
+\
+
+\textbf{1) Photoresists}
+
+\textbf{1a) Lift-off with single photoresist}
+
+Briefly explain why a lift-off with a negative photoresist generally works better than using a positive photoresist.
+Use a sketch to explain the answer. 
+
+\
+
+Negative photoresist usually works better because light leaks from the exposed part into parts of the photoresist covered by the mask.
+This leads to an angle at the feature edges,
+which slope away from the top for positive photoresist,
+and towards the middle for negative photoresist.
+This means that for the positive case,
+deposited metal will coat this slope,
+and for the negative case, the deposited metal will have a gap,
+since it can't cover a slope that isn't exposed vertically.
+A picture to illustrate:
+
+
+\includegraphics[scale=0.2,angle=270]{./posVSneg.jpg}
+
+Positive vs. negative photoresist and metal deposition.
+Negative photoresist has a gap between metal on the photoresist and metal on the substrate
+while positive photoresist has a continuous layer of metal covering both the photoresist and the substrate.
+
+
+\
+
+
+\textbf{1b) Lift-off with two photoresist}
+
+
+\
+
+
+
+\includegraphics[scale=0.2,angle=180]{./doubleLayerPr.jpg}
+
+Metal deposition with two layers of positive photoresist.
+The top layer is less sensitive to light and hence does not dissolve as much.
+The lower layer is more sensitive to light and hence dissolves more.
+This leaves an overhang from the top layer of photoresist to the substrate.
+When one deposits metal on such structure, there is a gap left in this overhang.
+This makes lift-off easier. 
+
+\
+
+\textbf{2) Photolithography}
+
+A 0.125 mm thick photoresist layer is to be patterned using a photomask.
+The distance between the mask and resist is initially 1.7 $\mu$m.
+The H-line of a mercury vapor lamp is used for exposure.
+
+\
+
+
+\textbf{2a) Feature size}
+
+Calculate the minimum feature size achievable with this setup.
+Show your work with units. 
+
+\
+
+We use the Fresnel Diffraction model:
+\begin{align*}
+  R &= \frac{3}{2} \sqrt{\lambda (s + z/2) } \\
+  &= \frac{3}{2}\sqrt{ 404.7 \times 10^-9\text{ m} \big(1.7\times 10^{-6} \text{ m} 
+    + \frac{0.125\times 10^{-3} \text{ m}}{2} \big) } \\
+  &= 7.646 \times 10^{-6} \text{ m}.
+\end{align*}
+
+\
+
+\textbf{2b) Variables}
+
+Now three different variables are being investigated to improve the minimum feature size.
+Which one should be selected to achieve the smallest possible feature size?
+
+\
+
+Let's calculate R for the I-line of the mercury vapor lamp: 
+\begin{align*}
+  R &= \frac{3}{2}\sqrt{ 365.4 \times 10^-9\text{ m} \big(1.7\times 10^{-6} \text{ m}
+    + \frac{0.125\times 10^{-3} \text{ m}}{2} \big) } \\
+  &= 7.26 \times 10^{-6} \text{ m}.
+\end{align*}
+
+\
+
+We know that the G-line of the vapor lamp has a higher wavelength,
+and since $\lambda$ shows up in the numerator under the square root function which increases with increased argument,
+we know that this will yield a larger resolution,
+so we know this won't be better than the I-line.
+
+Now let's calculate R for a distance between resist and mask of 0.9 $\mu$m:
+
+\begin{align*}
+  R &= \frac{3}{2}\sqrt{ 404.7 \times 10^-9\text{ m} \big(0.9\times 10^{-6} \text{ m}
+    + \frac{0.125\times 10^{-3} \text{ m}}{2} \big) } \\
+  &= 7.646 \times 10^{-6} \text{ m}.
+\end{align*}
+Using the I-line in the mercury vapor lamp gives the best result.
+Let's do that. 
+
+\
+
+\textbf{2c) Exposure method}
+
+Contact exposure is considered as another option.
+Explain the differences between contact and proximity exposure method.
+What are the advantages and disadvantages of each method?
+
+\
+
+Contact exposure means the mask is touching the photoresist layer,
+there is no gap so in the above calculations, $s=0$.
+
+The main advantage of contact lithography is that it allows for higher resolution.
+With no gap between the mask and the photoresist, 
+light doesn't hit the photoresist at an angle, 
+so the pattern transfer is more exact. 
+This may be an advantage for lift-off when using a positive photoresist,
+as the slopes in the features shown above will be vertical or very close to vertical.
+The disadvantage is that touching the photoresist may damage the mask.
+There may be existing features from previous steps in the microfabrication process, 
+and these may scratch the mask, 
+or the mask may damage them.
+
+The main advantage of proximity exposure is that it avoids the problems of contact lithography - the mask won't be damaged by the wafer or vice versa.
+The main disadvantage is the lower resolution.
+Having a gap means unwanted light can hit the photoresist at an angle underneath the mask.
+
+\
+
+\textbf{2d Other methods}
+
+What other methods can be used to further minimize the feature size?
+Only those that use a mask should be considered.
+
+
+\
+
+One method we did not consider above was using a thinner photoresist.
+If excess light exposes the photoresist at an angle,
+reducing the height of the photoresist will reduce the x-component
+of the unwanted exposure,
+improving resolution.
+One could also use phase-shift lithography.
+This means making certain parts of the mask thinner or thicker,
+in order to manage light scattering.
+Another method is nanoimprint lithography,
+which uses heat or direct physical imprinting of a polymer instead of light for pattern transfer.
+Also one could use electron beam lithography which uses a beam of electrons instead of light.
+
+\
+
+\textbf{3) Layer Etching}
+
+\textbf{3a) Wet Etchants}
+
+Explain the difference between isotropic and anisotropic silicon etchants and
+how does the etchant selection impact the microwell fabrication?
+
+\
+
+Isotropic etching etches in all directions at the same rate while 
+anisotropic etching etches in one direction faster than others.
+We show this in the drawing below where the isotropic etch etches faster
+vertically.
+If one were to make a well with vertical or at least,
+walls that do not erode away underneath the etch mask,
+one would choose a vertical isotropic etchant. 
+
+\
+
+\includegraphics[scale=0.12,angle=270]{./etch.jpg}
+
+
+\
+
+\
+
+
+\textbf{3b) Potassium hydroxide}
+
+Calculate the depth and volume of silicon removed when etched in
+40\% KOH solution at 70 $^\circ$C.
+
+\
+
+Using the picture from lecture we know that the structure will be etched
+in a pyramid form as in the picture: 
+
+\includegraphics[scale=0.3]{./etchLecture.png}
+
+\
+
+The height of this pyramid is
+\begin{align*}
+  h &= \tan(54.7^\circ) \times 10 \mu\text{m} \\
+  &= 0.1412 \mu\text{m}
+\end{align*}
+If we etch for 60 minutes in the (100) plane we go deeper than this height,
+so we must stop our calculation at this time and switch to only considering
+the (111) plane.
+This time happens at 
+\begin{align*}
+  t' &= \frac{0.1412 \mu\text{ m}}{0.599 \mu\text{m/min} } \\
+  &= 23.58 \text{ min}
+\end{align*}
+Then etching in the (111) plane for 60 - 23.58 min gives
+\begin{align*}
+  d &= 36.42 \text{ min} \times 0.009 \mu\text{m/min}  \\
+  &= 0.328 \mu\text{m}
+\end{align*}
+Then we need the hypotenuse of the triangle drawn here:
+
+\includegraphics[scale=0.12,angle=180]{./triangles.jpg}
+
+\begin{align*}
+  b' &= \frac{ 0.328 \mu\text{m}} {\sin(54.7^\circ) } \\
+  &= 0.402 \mu\text{m}
+\end{align*}
+The height adjustment is the same as the base adjustment. 
+Then the volume of our pyramid is the original pyramid with slightly larger
+base and height:
+\begin{align*}
+  V &= \frac{1}{3} (20+0.804 \mu\text{m})^2 \times (14.12 + .0402\mu\text{m}) \\
+  &= 2095 \mu\text{m}^3
+\end{align*}
+
+
+
+\newpage
+
+\textbf{Appendix}
+
+MATLAB code to do calculations
+\begin{verbatim}
+% 2a
+
+lambda = 404.7e-9 % nm to m
+s = 1.7e-6 % \mu m to m
+z = .125e-3 % mm to m
+
+R = (3/2)*sqrt(lambda*(s+z/2))
+
+lambda_I = 365.4e-9 % nm
+s2 = 0.9e-6 % \mu m
+
+R_I = (3/2)*sqrt(lambda_I*(s+z/2))
+R_2 = (3/2)*sqrt(lambda*(s2+z/2))
+
+%3b
+r100 = .599e-6 % m/min
+t = 60 % min
+width = 20e-6 % m
+depth = r100*t 
+theta = deg2rad(54.7)
+maxHeight = tan(theta)*width/2
+
+tprime = maxHeight/r100 % at this time (100) etching stops
+t2 = t-tprime % time during (111) only etching
+r111 = .009e-6 % m/min
+
+d2 = t2*r111 % etch distance in (111) after peak depth reached
+phi = pi/2 - theta % angle in small triangle (need this to compute new base)
+z = d2/cos(phi)
+
+V = (width+2*z)^2*(maxHeight+z)/3
+\end{verbatim}
+
+
+\end{document}

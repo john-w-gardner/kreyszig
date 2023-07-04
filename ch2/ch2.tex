@@ -1,0 +1,113 @@
+\documentclass{article}
+
+\usepackage{amsmath}                                  
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{bm}
+
+\setlength\parindent{0pt}
+
+% commands
+\newcommand{\R}{\textbf{R}}
+\newcommand{\norm}[1]{ \lVert #1 \rVert }
+
+
+
+\begin{document}
+\textbf{Some solutions to Kreyszig's
+  \textit{Introductory Functional Analysis with Applications}
+}
+
+\
+
+\textbf{2.1.6}
+
+Show that in an $n$-dimensional vector space $X$,
+the representation of any $x$ as a linear combination of given basis
+vectors $e_1, \dots, e_2$ is unique.
+
+\
+
+Suppose we have two representations for $x$:
+\begin{align*}
+  & x = \alpha_1e_1 + \dots \alpha_n e_n \\
+  \text{and } & x = \beta_1e_1 + \dots + \beta_n e_n \\
+\iff & 0 = x-x = (\alpha_1-\beta_1)e_1 + \dots + (\alpha_n-\beta_n) e_n 
+\end{align*}
+Since the basis vectors must be linearly independent,
+this means that each $(\alpha_i-\beta_i) = 0$,
+i.e. $\alpha_i = \beta_i$.
+
+\
+
+\textbf{2.1.10}
+
+If $Y$ and $Z$ are subspaces of a vector space $X$,
+show that $Y \cap Z$ is a subspace of $X$,
+but $Y \cup Z$ need not be one. 
+Give examples. 
+
+\
+
+For $Y \cap Z$,
+we show that this set is closed under scalar multiplication and addition. 
+Given $x \in Y\cap Z$,
+we know $\alpha x \in Y$ since $Y$ is a vector space,
+and $\alpha x \in Z$ since $Z$ is a vector space,
+hence $\alpha x \in Y \cap Z$. 
+Similarly, 
+given any $x$ and $y$ in $Y \cap Z$,
+$x+y \in Y$ by definition of subspace for $Y$ and
+$x+y \in Z$ by definition of subspace for $Z$,
+hence $x+y \in Y \cap Z$. 
+
+For $Y \cup Z$,
+we can use $\R^2$ as a counterexample.
+Let the ``$x$-axis'' or span\{(1,0)\} act as $Z$ and the
+``$y$-axis'' or span\{(0,1)\} act as $Y$.
+The union $Y \cup Z$ is not closed under vector addition
+(note that $(0,1) \in Y$ and $(1,0) \in Z$): 
+$$(1,0) + (0,1) = (1,1) \notin Y \cup Z$$
+
+Clearly the intersection of these two sets, the zero vector, is a subspace. 
+
+\
+
+\textbf{2.2.11}
+
+A subset $A$ of a vector space $X$ is said to be \textit{convex}
+if $x,y \in A$ implies
+$$ M = \{z \in X : z = \alpha x + (1-\alpha) y, 0 \leq \alpha \leq 1 \} \subset A$$
+$M$ is called a closed segment with boundary points $x$ and $y$;
+any other $z\in M$ is called an interior point of $M$.
+Show that the closed unit ball
+$$ \tilde{B}(0;1) = \{x\in X : \lVert x \rVert \leq 1 \}$$
+in a normed space $X$ is convex. 
+
+\
+
+We take any two points $x$ and $y$ in the unit ball $\tilde{B}(0;1)$ 
+and show that any point in the segment joining $x$ and $y$ is also
+in $\tilde{B}(0;1)$.
+Let $z \in \tilde{B}(0;1)$.
+Then there exists $\alpha \in [0,1]$ such that
+\begin{align*}
+  z &= \alpha x + (1-\alpha) y \\
+  \text{so \quad} \norm{z} &= \norm{ \alpha x + (1-\alpha) y } \\
+  \text{triangle inequality: \quad} & \leq \norm{ \alpha x } + \norm{ (1-\alpha) y } \\
+  \text{scalar invariance of norm: \quad} &= |\alpha| \norm{ x } + |(1-\alpha)|  \norm{ y } \\
+  \text{$\norm{x}, \norm{y} \leq 1$: \quad} &\leq |\alpha| + |1-\alpha| \\
+  \text{$0 \leq \alpha \leq 1$: \quad} & = \alpha + 1 - \alpha = 1
+\end{align*}
+So $\norm{z} \leq 1$ so it must be in the unit ball $\tilde{B}(0;1)$.
+
+\
+
+This is easy enough to see for $\R^2$ but what about for more exotic
+spaces like C[0,1]?
+This means that if we combine any two continuous functions with a common bound 
+in the manner above for $z$,
+the result will have the same bound.
+See jupyter notebook animation. 
+
+\end{document}
