@@ -9,13 +9,14 @@
 
 % commands
 \newcommand{\R}{\textbf{R}}
+\newcommand{\eps}{\epsilon}
 \newcommand{\norm}[1]{ \lVert #1 \rVert }
 
 
 
 \begin{document}
 \textbf{Some solutions to Kreyszig's
-  \textit{Introductory Functional Analysis with Applications}
+  \textit{Introductory Functional Analysis with Applications}, chapter 2
 }
 
 \
@@ -24,7 +25,7 @@
 
 Show that in an $n$-dimensional vector space $X$,
 the representation of any $x$ as a linear combination of given basis
-vectors $e_1, \dots, e_2$ is unique.
+vectors $e_1, \dots, e_n$ is unique.
 
 \
 
@@ -89,7 +90,7 @@ in a normed space $X$ is convex.
 We take any two points $x$ and $y$ in the unit ball $\tilde{B}(0;1)$ 
 and show that any point in the segment joining $x$ and $y$ is also
 in $\tilde{B}(0;1)$.
-Let $z \in \tilde{B}(0;1)$.
+Let $z \in M$, the line segment.
 Then there exists $\alpha \in [0,1]$ such that
 \begin{align*}
   z &= \alpha x + (1-\alpha) y \\
@@ -108,6 +109,106 @@ spaces like C[0,1]?
 This means that if we combine any two continuous functions with a common bound 
 in the manner above for $z$,
 the result will have the same bound.
-See jupyter notebook animation. 
+See jupyter notebook \verb+lineoffunctions.ipynb+
+for an illustrating animation. 
+
+\
+
+\textbf{2.3.2} Show that $c_0$, the space of all sequences of scalars
+converging to zero, is a closed subspace of $l^\infty$. 
+
+\
+
+We want to show that the complement of $c_0$ is open.
+That is,
+every element in the set of all non-convergent sequences 
+has a neighborhood of only non-convergent sequences.
+First write what it means for an $x = \{x_1, x_2, \dots\} \in c_0^C$
+not to converge to zero: 
+there is an $\epsilon > 0$ such that for all $N$,
+there is an $n > N$ such that $|x_n-0| \geq \epsilon$.
+Now let an $x' = \{x_1', x_2', ...\} \in B(x,\epsilon/2)$
+for the same $\epsilon$,
+so we have from the metric on $l^\infty$ that 
+$\sup |x_i - x_i'| < \epsilon/2 $.
+Now we want to show that $x'$ does not converge.
+From non-convergence of $x$, 
+\begin{align*}
+  \epsilon &\leq |x_n| = |x_n - x_n' + x_n'| \\
+  \text{ triangle inequality: \quad} &\leq |x_n - x_n'| + |x_n'| \\
+  \text{ by construction of $x'$: \quad} &< \eps/2 + |x_n'| \\
+  \text{ subtract $\epsilon$/2 from first and last expression: \quad}
+  \epsilon/2 &< |x_n'|
+\end{align*}
+hence there is an $\eps' = \eps/2$ so that $\forall N$ there is an $n>N$
+so that $|x_n' - 0| \geq \eps'$, 
+which means that $x'$ does not converge to zero. 
+Since $x'$ was an arbitrary element of an open ball of $x$,
+and $x\in c_0^C$ is arbitrary,
+$c_0^C$ is open, 
+which means $c_0$ is closed.
+
+\
+
+I had a crisis of faith.
+For some reason I thought that the monomials formed a Cauchy sequence. 
+But their limit is discontinuous and not a polynomial. 
+The limiting function equals zero on $[0,1)$ and 1 at $t=1$. 
+Since we showed that $C[a,b]$ is complete, 
+this is a contradiction,
+so it must not be Cauchy. 
+Let's prove this directly just for fun.
+
+\
+
+Let $\epsilon = 1/2$ and take any positive integer $N$.
+We want to show that there exist $n,m > N$ with
+$\sup |t^n - t^m| \geq \epsilon$.
+It's sufficient to show that there exists $t \in [0,1]$
+such that $|t^n - t^m| \geq \epsilon$. 
+For all $n>1$, $t^n$ takes all values in [0,1) for $t \in [0,1)$. 
+Let $n=N+1$ and $t_0$ denote the input such that $t_0^n = 3/4$. 
+Now we know that the monomials converge to zero pointwise on $[0,1)$
+so 
+for $\epsilon' = 1/4$ there exists $N'$ such that $m'>N'$ implies 
+$|t_0^{m'}| < \epsilon'$. Let $m=\max\{N,N'\}+1$ so we still have $|t_0^{m}| < \epsilon'$.
+Hence 
+\begin{align*}
+  |t_0^m - t_0^n| = t_0^n - t_0^m = 3/4 - t_0^m > 3/4 - 1/4 = 1/2
+\end{align*}
+So for some positive $\epsilon$,
+for arbitrary $N$ there exists $n,m>N$ with
+$\sup |t^m - t^n| \geq \epsilon$,
+which means $\{t^n\}$ is not Cauchy under $\sup|t^n - t^m|$. 
+
+\
+
+\textbf{Alternative proof of Corollary 2.7-10 (b)}
+
+The text shows that the null space of a bounded linear operator
+is closed by showing that the closure of the null space is the same set. 
+I would like a proof using the definition of a closed set,
+i.e. that the complement is open.
+
+\
+
+Let $x \in N(T)^C$, the complement of the null space.
+We want a neighborhood of $x$ fully contained in $N(T)^C$. 
+First, since $T$ is bounded, it is also continuous. 
+Hence for $\epsilon = \norm{Tx}/2$, 
+there exists a $\delta$ such that any $x'$ 
+satisfying ${\norm{x - x'}<\delta}$ (i.e. ${x' \in B(x,\delta)}$)
+also has ${\norm{Tx - Tx'} < \epsilon}$.
+Now take an arbitrary such $x'$
+and suppose it is in the null space
+(in order to show a contradiction),
+i.e. $Tx = 0$. 
+We have
+\begin{align*}
+  \frac{\norm{Tx}}{2} &< \norm{Tx} \\
+  &= \norm{Tx - Tx'} \\
+  \text{and by continuity of $T$:\quad} &< \epsilon = \frac{\norm{Tx}}{2}
+\end{align*}
+a contradiction. 
 
 \end{document}
